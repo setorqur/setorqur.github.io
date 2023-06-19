@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <script type="text/javascript">
+        document.addEventListener("DOMContentLoaded", function() {
+    // Periksa status login
+    if (!localStorage.getItem("masuk")) {
+      // Pengguna belum login, redirect ke halaman login
+      window.location.href = "login.html";
+    }
+  });
+        console.log("Halaman telah dimuat");
+      </script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.2/css/bootstrap.min.css" integrity="sha512-gLt2ZCifMxV7QcpogfKce5k5r5/ZwpyV7DdzeKihhV9ZGB+FtrZFAvU3kJKU6BnHN6S1z6IOvNQH4W8F4G4JiA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- Memanggil library CSS datepicker Bootstrap 5 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" integrity="sha512-zT+8U+a+fUbeySgwnn0j6HqEl8lXvl4x4ZL+UBfkg2Gr1e7+NO5o5G/cFV33/UQJYvy9lw1jgOnu0o0xr5qLHg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script type="text/javascript" src="assets/sweetalert/js/sweetalert.min.js"></script>
+    <script type="text/javascript" src="assets/js/jquery-3.3.1.js"></script>
+    <link rel="stylesheet" type="text/css" href="assets/sweetalert/css/sweetalert.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+        integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Setor Quran</title>
+    <style>
+        @media only print{
+            nav{
+                visibility: hidden;
+            }
+            .btn-add-print{
+                visibility: hidden;
+            }
+            .input-group{
+                visibility: hidden;
+            }
+            
+        }   
+    </style>
+</head>
+
+<body>
+    <!-- navbar -->
+    <nav
+        class="navbar navbar-expand-lg bg-light  fixed-top bg-light d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">SetorQur</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="fa-solid fa-bars-staggered"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item me-5">
+                        <a class="nav-link" href="#">
+                            <i class="fa-solid fa-user me-2"></i>
+                            <span id="nama_pengguna"></span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="grid">
+        <!-- sidebar -->
+        <div class="row mt-4 pt-4">
+            <nav class="col-md-2 d-none d-md-block bg-light sidebar" style=" margin-top: 28px ; height :86vh ">
+                <div class="sidebar-sticky">
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="menu1" href="data_hafalan.html">
+                              Data Hafalan
+                            </a>
+                          </li>
+                          <li class="nav-item">
+                            <a class="nav-link active" id="menu2" href="data_siswa.html">
+                              Data Siswa
+                            </a>
+                          </li>
+                          <li class="nav-item">
+                            <a class="nav-link active" id="menu4" href="laporan.html">
+                              Laporan
+                            </a></li>
+                          <li class="nav-item">
+                            <a class="nav-link active" id="logout" href="#">
+                              Logout
+                            </a>
+                          </li>
+                    </ul>
+                </div>
+            </nav>
+            <main id="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+                <div class="d-flex justify-content-between">
+                    <h1 class="mt-5">Data Siswa</h1>
+                    <div class="btn-add-print">
+                        <button type="button" class="btn btn-primary mt-5" id="btntambah" data-bs-toggle="modal"data-bs-target="#staticBackdrop"> Tambah</button>
+                        <!-- <button type="button" class="btn btn-primary mt-5" onclick="window.print()"> Cetak</button> -->
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="input-group">
+                            <input class="form-control border" type="search" id="cari_siswa"
+                                placeholder="Cari Nama Siswa">
+                        </div>
+                    
+                    </div>
+                </div>
+                <br>
+                <table id="tabel_siswa" class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">No</th>
+                            <th scope="col">Nis</th>
+                            <th scope="col">Nama</th>
+                            <th scope="col">Kelas</th>
+                            <th scope="col">Alamat</th>
+                            <th scope="col">Telepon Wali</th>
+                            <th scope="col">Aksi</th>
+
+                        </tr>
+                    </thead>
+                    <tbody id="tbody">
+
+                    </tbody>
+                </table>
+
+                <!-- Modal -->
+                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
+                    tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="staticBackdropLabel">Data Siswa</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+
+                            </div> <!-- form -->
+                            <div class="container">
+                                <div class="content-header">
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            <form id='form_siswa' enctype="multipart/form-data">
+                                                <div class="form-group">
+                                                    <label for="NIM">Nis</label>
+                                                    <input name="nim" type="text" class="form-control" id="nim"
+                                                        placeholder="Nis">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="nama">Nama</label>
+                                                    <input name="nama" type="text" class="form-control" id="nama"
+                                                        placeholder="Nama">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="kelas">Kelas</label>
+                                                    <input name="kelas" type="text" class="form-control" id="kelas"
+                                                        placeholder="kelas">
+                                                </div>
+                                                
+                                                <div class="form-row">
+                                                </div>
+                                                <div class="form-group" name="kelamin" id="jeniskelamin">
+                                                    <label for="kelamin"> Jenis Kelamin</label> <br>
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="radio" name="jekel"
+                                                            id="rlaki" value="Laki-laki">
+                                                        <label class="form-check-label"
+                                                            for="inlineRadio1">Laki-laki</label>
+                                                    </div>
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="radio" name="jekel"
+                                                            id="rperempuan" value="Perempuan">
+                                                        <label class="form-check-label"
+                                                            for="inlineRadio2">Perempuan</label>
+                                                    </div>
+                                                    <div class="form-group col-md-8 mb-3">
+                                                        <div class="form-group">
+                                                            <label for="no_hp">Telepon Wali</label>
+                                                            <input name="no_hp" type="text" class="form-control"
+                                                                onKeyPress="return goodchars(event,'0123456789.',thiss)"
+                                                                id="no_hp" placeholder="Nomor Telpon">
+                                                        </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary" id="btnsimpan_siswa">Simpan</button>
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal" id="btnbatal_siswa">Batal</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <script type="module" src="index.js"></script>
+                    <script type="module" src="logout.js"></script>
+                    <script type="module" src="dashboard.js"></script>
+
+            </main>
+        </div>
+        </div>
+        
+</body>
+
+</html>
